@@ -23,6 +23,7 @@ class CreateRepliesTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
