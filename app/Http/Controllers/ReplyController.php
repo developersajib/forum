@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Model\Reply;
+use App\Model\Question;
 
 class ReplyController extends Controller
 {
@@ -11,9 +14,10 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Question $question)
     {
-        //
+        return $question->replies;
+        //return Reply::Latest()->get();
     }
 
     /**
@@ -22,9 +26,10 @@ class ReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Question $question, Request $request)
     {
-        //
+       $reply =  $question->replies()->create($request->all());
+        return response(['reply' => $reply], Response::HTTP_CREATED);
     }
 
     /**
@@ -33,9 +38,10 @@ class ReplyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question, Reply $reply)
     {
         //
+        return $reply;
     }
 
     /**
@@ -56,8 +62,9 @@ class ReplyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question, Reply $reply)
     {
-        //
+        $reply->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
