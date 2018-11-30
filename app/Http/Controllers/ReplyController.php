@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Model\Reply;
 use App\Model\Question;
-
+use App\Http\Resources\ReplyResource;
 class ReplyController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class ReplyController extends Controller
      */
     public function index(Question $question)
     {
-        return $question->replies;
+        return ReplyResource::collection($question->replies);
         //return Reply::Latest()->get();
     }
 
@@ -29,7 +29,7 @@ class ReplyController extends Controller
     public function store(Question $question, Request $request)
     {
        $reply =  $question->replies()->create($request->all());
-        return response(['reply' => $reply], Response::HTTP_CREATED);
+        return response(['reply' => new ReplyResource($reply)], Response::HTTP_CREATED);
     }
 
     /**
@@ -41,7 +41,7 @@ class ReplyController extends Controller
     public function show(Question $question, Reply $reply)
     {
         //
-        return $reply;
+        return new ReplyResource($reply);
     }
 
     /**
@@ -51,9 +51,10 @@ class ReplyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Question $question, Request $request, Reply $reply)
     {
-        //
+        $category->update($request->all());
+        return response(null, Response::HTTP_ACCEPTED);
     }
 
     /**
