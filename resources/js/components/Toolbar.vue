@@ -1,7 +1,7 @@
 <template>
   <v-toolbar>
     <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title>FORUM</v-toolbar-title>
+    <v-toolbar-title><router-link to="/">FORUM</router-link></v-toolbar-title>
     <v-spacer></v-spacer>
     <div class="hidden-sm-and-down">
     <router-link to="/login"><v-btn flat>Login</v-btn></router-link>	

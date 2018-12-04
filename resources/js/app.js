@@ -13,6 +13,11 @@ import Vuetify from 'vuetify'
  
 Vue.use(Vuetify)
 
+import User from './Helpers/User'
+import AppStroage from './Helpers/AppStorage'
+window.User = User
+window.AppStroage = AppStroage
+console.log(User.id())
 
 Vue.component('AppHome', require('./components/AppHome.vue'));
 import router from './Router/router.js'
